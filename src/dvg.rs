@@ -22,6 +22,10 @@ impl DvgImage {
         self.data[(x + y * self.width) as usize] = pixel;
     }
 
+    pub fn get_pixel(&self, x: &u32, y: &u32) -> Luma<u8> {
+        self.data[(x + y * self.width) as usize]
+    }
+
 
     pub fn save(&self, path: &str)  {
         let mut file = File::create(path).unwrap();
