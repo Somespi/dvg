@@ -1,6 +1,5 @@
 use std::{fs::File, io::Write};
-
-use image::Luma;
+use image::{Luma, ImageBuffer};
 
 
 pub struct DvgImage {
@@ -22,10 +21,10 @@ impl DvgImage {
         self.data[(x + y * self.width) as usize] = pixel;
     }
 
+
     pub fn get_pixel(&self, x: &u32, y: &u32) -> Luma<u8> {
         self.data[(x + y * self.width) as usize]
     }
-
 
     pub fn save(&self, path: &str)  {
         let mut file = File::create(path).unwrap();
@@ -34,5 +33,13 @@ impl DvgImage {
         let data = &self.data.iter().map(|pixel| pixel[0]).collect::<Vec<u8>>();
         file.write_all(&data).unwrap();
         let _ = Ok::<(),()>(());
+    }
+
+
+    pub fn save_as_png(&self, path: &str) {
+        let image   = ImageBuffer::
+            from_fn(self.width, self.height, |x, y| self.get_pixel(&x, &y));
+
+        image.save(path).unwrap();
     }
 }
