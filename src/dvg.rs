@@ -3,7 +3,7 @@ use image::{Luma, ImageBuffer};
 
 
 pub struct DvgImage {
-    data: Vec<Luma<u8>>,
+    pub data: Vec<Luma<u8>>,
     width: u32,
     height: u32
 }
@@ -42,4 +42,6 @@ impl DvgImage {
 
         image.save(path).unwrap();
     }
+
 }
+
